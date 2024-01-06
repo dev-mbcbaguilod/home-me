@@ -4,6 +4,10 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import {connectDatabase} from './config/dbConnect.js';
 import errorMiddleware from './middlewares/errors.js';
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -24,10 +28,19 @@ app.use(cookieParser());
 import productRoutes from './routes/products.js';
 import authRoutes from './routes/auth.js';
 import orderRoutes from './routes/order.js';
+import { fileURLToPath } from 'url';
 
 app.use('/api', productRoutes);
 app.use('/api', authRoutes);
 app.use('/api', orderRoutes);
+
+if (process.env.NODE_ENV === "PRODUCTION") {
+    app.use(express.static(path.join(__dirname, "../frontend/build")));
+ 
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+    })
+}
 
 // Using error middlware
 app.use(errorMiddleware);
