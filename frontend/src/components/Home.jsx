@@ -48,7 +48,7 @@ const Home = () => {
         )}
         <div className={keyword ? "col-6 col-md-9" : "col-6 col-md-12"}>
           <h1 id="products_heading" className="text-secondary">
-            {keyword ? `${data?.products?.length} Products found with the keyword: ${keyword}` : "Latest Products"}
+            {keyword ? `${data?.products?.length} Products found with the keyword: ${keyword}` : "Latest Services"}
           </h1>
 
           <section id="products" className="mt-5">

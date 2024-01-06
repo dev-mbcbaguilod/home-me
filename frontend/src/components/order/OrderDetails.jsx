@@ -98,7 +98,7 @@ const OrderDetails = () => {
             </tr>
             <tr>
               <th scope="row">Amount Paid</th>
-              <td>${totalAmount}</td>
+              <td>Php {totalAmount}</td>
             </tr>
           </tbody>
         </table>

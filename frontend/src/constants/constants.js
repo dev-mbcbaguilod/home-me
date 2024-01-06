@@ -1,5 +1,7 @@
 export const PRODUCT_CATEGORIES = [
-    "Categories..", 
-    "laptops",
-    "electronics"
+    "Home Cleaning",
+    "Anti Bacterial Mist",
+    "General Pest Management",
+    "Aircon Maintenance Services",
+    "Declogging Services"
 ];

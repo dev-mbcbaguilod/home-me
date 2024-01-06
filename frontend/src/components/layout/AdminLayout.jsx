@@ -9,7 +9,7 @@ const AdminLayout = ({children}) => {
             icon: "fas fa-plus"
         },
         {
-            name: "Products",
+            name: "Services",
             url: "/admin/products",
             icon: "fab fa-product-hunt"
         },
