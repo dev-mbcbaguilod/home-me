@@ -3,11 +3,11 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node backend/index.js",
-    "dev": "NODE_ENV=DEVELOPMENT nodemon backend/index.js",
-    "prod": "NODE_ENV=PRODUCTION nodemon backend/index.js",
+    "start": "node backend/app.js",
+    "dev": "NODE_ENV=DEVELOPMENT nodemon backend/app.js",
+    "prod": "NODE_ENV=PRODUCTION nodemon backend/app.js",
     "seeder": "node backend/seeder/seeder.js"
   },
   "author": "",
