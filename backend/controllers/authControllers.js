@@ -4,22 +4,16 @@ import {getResetPasswordTemplate} from '../utils/emailTemplates.js';
 import ErrorHandler from "../utils/errorHandler.js";
 import sendToken from "../utils/sendToken.js";
 import sendEmail from '../utils/sendEmail.js';
+import { delete_file, upload_file } from "../utils/cloudinary.js";
 
 // Register user => /api/register
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password, role } = req.body;
 
-    // Ensure that the role is valid (either 'user' or 'admin')
-    const validRoles = ['user', 'admin'];
-    if (!validRoles.includes(role)) {
-        return next(new ErrorHandler('Invalid role. Please choose either "user" or "admin".', 400));
-    }
-
     const user = await User.create({
         name,
         email,
         password,
-        role, // Set the role based on user input
     });
 
     sendToken(user, 201, res);
@@ -50,7 +44,7 @@ export const loginUser = catchAsyncErrors (async (req, res, next) => {
     sendToken(user, 200, res)
 });
 
-// Logout user => /api/login
+// Logout user => /api/logout
 export const logout = catchAsyncErrors (async (req, res, next) => {
     res.cookie("token", null, {
         expires: new Date(Date.now()),
@@ -59,6 +53,24 @@ export const logout = catchAsyncErrors (async (req, res, next) => {
 
     res.status(200).json({
         message: "Logged out."
+    });
+});
+
+// Upload user avatar => /api/me/upload_avatar
+export const uploadAvatar = catchAsyncErrors (async (req, res, next) => {
+    const avatarResponse = await upload_file(req.body.avatar, "capstone-project/avatars")
+
+    // Remove previous avatar
+    if (req?.user?.avatar?.url) {
+        await delete_file(req?.user?.avatar?.public_id);
+    };
+
+    const user = await User.findByIdAndUpdate(req?.user?._id, {
+        avatar: avatarResponse,
+    })
+
+    res.status(200).json({
+        user,
     });
 });
 
@@ -212,7 +224,7 @@ export const updateUser = catchAsyncErrors(async (req, res, next) => {
     })
 });
 
-// Get user details - ADMIN => api/admin/users/:id
+// Delete User - ADMIN => api/admin/users/:id
 export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
@@ -220,7 +232,10 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 404))
     }
 
-    // TODO - Remove user avator from cloudinary
+    //  Remove user avatar from cloudinary
+    if (user?.avatar?.public_id) {
+        await delete_file(user?.avatar?.public_id)
+    }
 
     await user.deleteOne()
 
