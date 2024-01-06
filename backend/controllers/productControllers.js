@@ -4,6 +4,8 @@ import ErrorHandler from '../utils/errorHandler.js';
 import catchAsyncErrors from '../middlewares/catchAsyncErrors.js';
 import APIFilters from '../utils/apiFilters.js';
 import {upload_file} from "../utils/cloudinary.js"
+import {delete_file} from "../utils/cloudinary.js"
+
 
 export const getProducts = catchAsyncErrors(async (req, res, next) => {
     const resPerPage = 4;
@@ -28,13 +30,13 @@ export const getProducts = catchAsyncErrors(async (req, res, next) => {
     Note that this is only for the admin route
 */
 export const newProduct = catchAsyncErrors(async (req, res) => {
-    req.body.user = req.user_id;
+    req.body.user = req.user_id; 
 
     const product = await Product.create(req.body);
 
     res.status(200).json({
         product
-    })
+    });
 });
 
 // Get single product details => /api/products/:id
@@ -96,7 +98,7 @@ export const uploadProductImages = catchAsyncErrors(async (req, res, next) => {
 
 // Delete product images => /api/admin/products/:id/delete_images
 export const deleteProductImage = catchAsyncErrors(async (req, res, next) => {
-    let product = await Product.findById(req.params.id);
+    let product = await Product.findById(req?.params?.id);
 
     if (!product) {
         return next(new ErrorHandler('Product not found', 404));
@@ -118,7 +120,7 @@ export const deleteProductImage = catchAsyncErrors(async (req, res, next) => {
 
 // Delete product => /api/products/:id
 export const deleteProduct = catchAsyncErrors(async (req, res, next) => {
-    const product = await Product.findById(req.params.id).populate("reviews.user");
+    const product = await Product.findById(req?.params?.id).populate("reviews.user");
 
     if (!product) {
         return next(new ErrorHandler('Product not found', 404));

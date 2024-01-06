@@ -17,37 +17,37 @@ const adminRoutes = () => {
   return (
     <>
         <Route path="/admin/dashboard" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <Dashboard />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/products" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <ListProducts />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/product/new" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <NewProduct />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/products/:id" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <UpdateProduct />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/products/:id/upload_images" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <UploadImages />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/orders" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <ListOrders />
                 </ProtectedRoute>
         } />
@@ -59,19 +59,19 @@ const adminRoutes = () => {
         } />
 
         <Route path="/admin/users" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <ListUsers />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/users/:id" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <UpdateUser />
                 </ProtectedRoute>
         } />
 
         <Route path="/admin/reviews" element={
-                <ProtectedRoute>
+                <ProtectedRoute admin={true}>
                     <ProductReviews />
                 </ProtectedRoute>
         } />

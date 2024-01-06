@@ -89,7 +89,6 @@ const UploadImages = () => {
       <div className="col-10 col-lg-8 mt-5 mt-lg-0">
         <form 
         className="shadow rounded bg-body" 
-        enctype="multipart/form-data"
         onSubmit={submitHandler}>
           <h2 className="mb-4">Upload Product Images</h2>
 

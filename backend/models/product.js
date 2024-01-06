@@ -35,13 +35,13 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter product category.'],
         enum: {
-            values: ['laptops'], // to be updated
+            values: ['laptops', 'electronics'], // to be updated
             message: 'Please select correct category.'
         }
     },
     seller: {
         type: String, 
-        required: [true, 'Plesae enter product seller.']
+        required: [true, 'Please enter product seller.']
     },
     stock: {
         type: Number,

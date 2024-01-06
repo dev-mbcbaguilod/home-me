@@ -62,7 +62,7 @@ export const productApi = createApi({
         uploadProductImages: builder.mutation({
             query({id, body}) {
                 return {
-                    url: `/admin/products/${id}/upload_images`,
+                    url: `/admin/products/${id}/upload_image`,
                     method: "PUT",
                     body,
                 };
@@ -72,7 +72,7 @@ export const productApi = createApi({
         deleteProductImage: builder.mutation({
             query({id, body}) {
                 return {
-                    url: `/admin/products/${id}/delete_image`,
+                    url: `/admin/products/${id}/delete_images`,
                     method: "PUT",
                     body,
                 };
@@ -80,7 +80,7 @@ export const productApi = createApi({
             invalidatesTags: ["Product"],
         }),
         deleteProduct: builder.mutation({
-            query({id}) {
+            query(id) {
                 return {
                     url: `/admin/products/${id}`,
                     method: "DELETE",

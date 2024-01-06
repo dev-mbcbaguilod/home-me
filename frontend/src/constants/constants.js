@@ -1,4 +1,5 @@
 export const PRODUCT_CATEGORIES = [
-    "laptops", 
+    "Categories..", 
+    "laptops",
     "electronics"
 ];
